@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{lang}}">
+<html>
 <head>
 
     {{!-- Document Settings --}}
@@ -30,10 +30,8 @@
             <div class="site-footer-content inner">
                 <section class="copyright"><a href="{{@blog.url}}">{{@blog.title}}</a> &copy; {{date format="YYYY"}}</section>
                 <nav class="site-footer-nav">
-                    <a href="{{@blog.url}}">Latest Posts</a>
-                    {{#if @blog.facebook}}<a href="{{facebook_url @blog.facebook}}" target="_blank" rel="noopener">Facebook</a>{{/if}}
-                    {{#if @blog.twitter}}<a href="{{twitter_url @blog.twitter}}" target="_blank" rel="noopener">Twitter</a>{{/if}}
-                    <a href="https://ghost.org" target="_blank" rel="noopener">Ghost</a>
+                    <a href="//inrenping.com">inrenping</a>
+                    <a href="//carlzhang.net">carlzhang</a>
                 </nav>
             </div>
         </footer>
@@ -63,11 +61,34 @@
     </script>
     <script type="text/javascript" src="{{asset "js/jquery.fitvids.js"}}"></script>
 
+<script>
+$(function () {
+    var backgrounds = new Array('48638741', '21588886', '63967458', '66934537', '44403643', '17648714', '66919234', '6095368', '16785804', '5631855', );
+    var random = Math.floor(Math.random() * backgrounds.length);
+
+    function checkWebp() {
+        try {
+            return (document.createElement('canvas').toDataURL('image/webp').indexOf('data:image/webp') == 0);
+        } catch (err) {
+            return false;
+        }
+    }
+
+    function setbg(type) {
+        $('figure.post-full-image').css('background-image', 'url(//inrenping.com/public/images/' + backgrounds[random] + '.' + type);
+        $('header.random').css('background-image', 'url(//inrenping.com/public/images/' + backgrounds[random] + '.' + type);
+    }
+
+    if (checkWebp()) {
+        setbg(type = 'webp');
+    } else {
+        setbg(type = 'jpg');
+    }
+});
+</script>
+
     {{#if pagination.pages}}
     <script>
-        // maxPages is a global variable that is needed to determine
-        // if we need to load more pages for the infinitescroll, or if
-        // we reached the last page already.
         var maxPages = parseInt('{{pagination.pages}}');
     </script>
     <script src="{{asset "js/infinitescroll.js"}}"></script>
